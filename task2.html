@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HW#37 task2</title>
+</head>
+<body>
+
+    <table border="1">
+    <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Capital</th>
+        <th>Populatoin</th>
+    </tr>
+    <tr id="main-tr">
+        <td id="code"></td>
+        <td id="name"></td>
+        <td id="capital"></td>
+        <td id="population"></td>
+    </tr>
+    <script src="js/jQuery.js"></script>
+    <script>
+      $.ajax({
+        method: "GET",
+        url: "https://restcountries.eu/rest/v2/all",
+        success: function(response){
+            for(var resp in response){
+            var val = response[resp];
+            var name = $('#name');
+            var code = $('#code');
+            var capital = $('#capital');
+            var population = $('#population');   
+            name.append(val.name);
+            code.append(val.alpha2Code);
+            capital.append(val.capital);
+            population.append(val.population);
+            }
+          
+        }
+      });
+
+    </script>
+
+    
+</body>
+</html>

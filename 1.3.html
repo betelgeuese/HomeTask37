@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<input id="country-name" type="text"placeholder="Название страны">
+<button id="show">Show information</button>
+
+<p><b>Name: </b><span id="name"></span></p>
+<p><b>Currencies: </b><span id="money"></span></p>
+    <script src="js/jQuery.js"></script>
+    <script>
+
+        $('#show').on("click", function(){
+            var country_name = $('#country-name').val();
+            var country_zip = $('#country-zip').val();
+            $.ajax({
+                method: "GET",
+                url: "https://restcountries.eu/rest/v2/name/" + country_name,
+                success: function(response){
+                    var country = response[0];
+        
+                    var currencies = response[0].currencies;
+
+                    // var end = currencies[0].code;
+                    // console.log(end); 
+                    // var name = document.getElementById("name");
+                    // var money = document.getElementById("money");
+                    // name.append(country.name);
+                    // money.append(end);
+
+
+                    for (var code in currencies){
+                        var value = currencies[code];
+                        var end = currencies[0].code;  
+                        console.log(end);
+                        
+                    }
+                   
+                    var name = document.getElementById("name");
+                    var money = document.getElementById("money");
+                    name.append(country.name);
+                    money.append(end);
+                    
+                    
+                    
+                }
+            });
+
+        })
+    </script>
+</body>
+</html>

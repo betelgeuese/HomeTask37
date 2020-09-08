@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<input id="country-name" type="text"placeholder="Название страны">
+<input id="country-zip" type="text" placeholder="Код страны"><!--- Небольшое дополнение. Чтобы выводились флаги именно тех стран, которые заданы в поиске. Например: Хотим узнать про россию в этом поле пишем "rus", про Чехию - "cze" и т.д-->
+<button id="show">Show information</button>
+
+    
+<p><b>Name: </b><span id="name"></span></p>
+<p><b>Region: </b><span id="region"></span></p>
+<p><b>Subregion: </b><span id="subregion"></span></p>
+<p><b>Capital: </b><span id="capital"></span></p>
+<p><b>Currencies: </b><span id="money"></span></p>
+<p><b>Flag: </b><span id="flag"></span></p>
+    <script src="js/jQuery.js"></script>
+    <script>
+
+var printCountry = function(){
+           
+        }
+
+        $('#show').on("click", function(){
+            var country_name = $('#country-name').val();
+            var country_zip = $('#country-zip').val();
+            $.ajax({
+                method: "GET",
+                url: "https://restcountries.eu/rest/v2/name/" + country_name,
+                success: function(response){
+                    var country = response[0];//response.currerncies и уже по нему бежать циклом 
+                    console.log(country);
+                    var name = document.getElementById("name");
+                    var region = document.getElementById("region");
+                    var subregion = document.getElementById("subregion");
+                    var capital = document.getElementById("capital");
+                    var flag = document.getElementById("flag");
+                    var money = document.getElementById("money");
+
+                    var img = $('<img id ="image">');
+                    img.attr('src', "https://restcountries.eu/data/"+ country_zip + ".svg");
+                    img.appendTo('#flag');
+                    img.css({
+                        'height': '150px'
+                    });
+                    
+                    name.append(country.name);
+                    region.append(country.region);
+                    subregion.append(country.subregion);
+                    capital.append(country.capital);
+                    money.append(country.currencies[0].code);
+                    
+                    
+                    
+                }
+            });
+
+        })
+    </script>
+</body>
+</html>
